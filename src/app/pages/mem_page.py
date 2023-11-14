@@ -1,27 +1,22 @@
 import dash
 from dash import html, Input, Output, State, callback
-from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
-import dash_ag_grid as dag
 
 import pandas as pd
-import plotly.express as px
 
-from src.mem_tab_views import (
+from src.app.mem_tab_views import (
     tabs_menu_member,
-    mem_tab_claims,
     mem_tab_services,
     mem_tab_dashboard
 )
+from src.app.mem_tab_views import mem_tab_claims
 
-from src.components import (
-    ids,
-    comp_graphs,
-    comp_tools,
-    comp_grids
+from src.app.components import (
+    comp_graphs
 )
+from src.app.components import ids
 
-from src.data.mem_data_calculations import MemberCalculations, GridStats
+from src.app.data.mem_data_calculations import MemberCalculations, GridStats
 
 dash.register_page(__name__,
                    path='/member',

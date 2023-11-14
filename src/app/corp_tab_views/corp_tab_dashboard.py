@@ -1,7 +1,7 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 
-from src.components import ids
+from src.app.components import ids
 
 
 def render_corp_tab_dashboard():
@@ -34,7 +34,7 @@ def render_corp_tab_dashboard():
                     dbc.Row([
                         dbc.Col([
                             html.P('YTD Ave', className='my-0'),
-                            html.P(id=ids.CORP_CARD_CLAIM_START, className='mb-0' )
+                            html.P(id=ids.CORP_CARD_CLAIM_START, className='mb-0')
                         ], className='fs-6'),
                         dbc.Col([
                             html.P('Current', className='my-0',),
@@ -121,7 +121,7 @@ def render_corp_tab_dashboard():
                     dbc.Row([
                         dbc.Col([
                             html.P('YTD Charge Ave', className='my-0'),
-                            html.P(id=ids.CORP_CARD_CHARGE_START, className='mb-0' )
+                            html.P(id=ids.CORP_CARD_CHARGE_START, className='mb-0')
                         ], className='fs-6'),
                         dbc.Col([
                             html.P('Current Charge Ave', className='my-0',),

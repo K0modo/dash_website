@@ -1,7 +1,6 @@
-from dash import html, dcc
+from dash import html
 
 import dash_bootstrap_components as dbc
-from src.components import ids
 
 
 def stat_card(children, stat_id):

@@ -1,22 +1,10 @@
-from dash import html, dcc, Input, Output, State, callback
+from dash import html, dcc
 import dash_bootstrap_components as dbc
-import pandas as pd
 
-
-from src.mem_tab_views import (
-    tabs_menu_member,
-    mem_tab_claims,
-    mem_tab_services,
+from src.app.components import (
+    comp_tools
 )
-
-from src.components import (
-    ids,
-    comp_graphs,
-    comp_tools,
-    comp_grids
-)
-
-from src.data.mem_data_calculations import MemberCalculations, GridStats
+from src.app.components import ids
 
 from dash_extensions import Lottie
 
@@ -26,9 +14,8 @@ lottie_items = "assets/images/lottie/animation_lme16ka1.json"
 
 options = dict(loop=False, autoplay=True, rendererSettings=dict(preserveAspectRatio="xMidYMid slice"))
 
+
 def render_tab_dashboard_view():
-
-
 
     member_dropdown_box = html.Div([
         html.H4('Select Member',
@@ -57,7 +44,7 @@ def render_tab_dashboard_view():
                 dbc.Col([
                     dbc.CardBody([
                         html.H4('Charges'),
-                        html.H3('',ids.MEM_ANNUAL_CHARGE)
+                        html.H3('', ids.MEM_ANNUAL_CHARGE)
                     ])
                 ], className='text-center text-primary')
             ])

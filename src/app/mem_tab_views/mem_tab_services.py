@@ -1,16 +1,11 @@
-from dash import html, dcc, Input, Output, State, callback
+from dash import html, dcc
 import dash_bootstrap_components as dbc
-import pandas as pd
 import dash_ag_grid as dag
 
-from src.components import (
-    ids,
-    comp_graphs,
-    comp_tools,
+from src.app.components import (
     comp_grids
 )
-
-from src.data.mem_data_calculations import MemberCalculations, GridStats
+from src.app.components import ids
 
 '''
 Present Grid by Specialty

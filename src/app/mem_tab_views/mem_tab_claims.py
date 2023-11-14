@@ -1,10 +1,7 @@
 from dash import html
 import dash_bootstrap_components as dbc
 
-from src.components import (
-    ids,
-    comp_tools,
-)
+from src.app.components import ids
 from dash_extensions import Lottie
 
 lottie_charges = "assets/images/lottie/animation_lmdrh57q.json"
@@ -42,7 +39,7 @@ def render_tab_claims_view():
                                                     dbc.CardBody(
                                                         [
                                                             html.H4('Charges'),
-                                                            html.H3('',ids.MEM_ANNUAL_CHARGEt)
+                                                            html.H3('', ids.MEM_ANNUAL_CHARGEt)
                                                         ], className=''
                                                     )
                                                 ], className='text-center text-primary'
@@ -68,7 +65,7 @@ def render_tab_claims_view():
                                                     dbc.CardBody(
                                                         [
                                                             html.H4('Claims'),
-                                                            html.H3('',ids.MEM_ANNUAL_CLAIMSt)
+                                                            html.H3('', ids.MEM_ANNUAL_CLAIMSt)
                                                         ]
                                                     )
                                                 ], className='text-center text-primary'
@@ -94,7 +91,7 @@ def render_tab_claims_view():
                                                     dbc.CardBody(
                                                         [
                                                             html.H4('Line Items'),
-                                                            html.H3('',ids.MEM_ANNUAL_LINE_ITEMSt)
+                                                            html.H3('', ids.MEM_ANNUAL_LINE_ITEMSt)
                                                         ]
                                                     )
                                                 ], className='text-center text-primary'

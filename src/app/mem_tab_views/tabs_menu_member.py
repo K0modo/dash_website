@@ -1,7 +1,7 @@
 from dash import html
 import dash_bootstrap_components as dbc
 
-from src.components import ids
+from src.app.components import ids
 
 
 def render_member_tab_menu():
