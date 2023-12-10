@@ -7,7 +7,7 @@ from src.app.components import ids
 def render_corporate_tab_menu():
     tab_menu = [
         {"tab_id": ids.CORP_TAB_DASHBOARD, 'label': 'Dashboard'},
-        # {"tab_id": ids.TAB_SERVICES, 'label':'Medical Services'},
+        {"tab_id": ids.CORP_TAB_OTHER, 'label':'Other'},
         # {"tab_id": ids.TAB_CLAIMS, 'label':'Medical Claims'},
     ]
     return html.Div(

@@ -1,8 +1,8 @@
 import pandas as pd
 
-# C:\Users\jchri\PycharmProjects\dash_website\data\data_members.csv
+# 'C:\Users\jchri\PycharmProjects\dash_website\data\data_members.csv'
 
-df_mem_path = r"../data/data_members.csv"
+df_mem_path = r'C:\Users\jchri\PycharmProjects\dash_website\data\data_members.csv'
 df_mem = pd.read_csv(df_mem_path, parse_dates=['charge_trans_date']).sort_values('mem_acct')
 df_mem['trans_date'] = df_mem['charge_trans_date'].dt.date
 # df[‘Date’]=df[‘Date’].astype(str)  - searched for dcc.Store and Ag Grid
@@ -17,7 +17,7 @@ def load_member_data():
     return df_mem_dict
 
 # LOAD CORPORATE DATA
-df_corp_path = r"../data/data_sept.csv"
+df_corp_path = r"C:\Users\jchri\PycharmProjects\dash_website\data\data_sept.csv"
 df_corp = pd.read_csv(df_corp_path,  parse_dates=['charge_trans_date'])
 df_corp['trans_date'] = df_corp['charge_trans_date'].dt.date
 

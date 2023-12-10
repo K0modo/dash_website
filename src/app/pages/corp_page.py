@@ -14,7 +14,7 @@ from src.app.data.corp_data_calculations import CorporateCalculations
 
 from src.app.server import db
 import sqlalchemy as sa
-from src.app.models import ClaimsPaid
+from src.app.models import ClaimsPaid, DailyClaims, DailyMember, PeriodSummary, PeriodMember
 
 dash.register_page(__name__,
                    path='/corporate',
@@ -24,59 +24,177 @@ dash.register_page(__name__,
                    )
 
 
-layout = dbc.Container([
+# layout = dbc.Container([
+#
+#     'Page_1 Container',
+#     html.Br(),
+#     html.Div(children='My First App with Dash & SqlAlchemy'),
+#     html.Hr(),
+#     dcc.Dropdown(
+#             id=ids.CORP_PERIOD_DROPDOWN,
+#             options=[1,2,3,4,5,6,7,8,9,10,11,12],
+#             value=1,
+#             clearable=False,
+#             persistence='session',
+#             style={'width': '50px'}
+#         ),
+#     dcc.Graph(id=ids.CORP_DAILY_CLAIMS_MONTH)
+#     # dcc.RadioItems(options=['charge_allowed', 'deduct_copay'], value='charge_allowed', id='controls'),
+#     # dcc.Graph(id='first-graph')
+#
+# ])
 
-    'Page_1 Container',
-    html.Br(),
-    html.Div(children='My First App with Dash & SqlAlchemy'),
-    html.Hr(),
-    dcc.RadioItems(options=['charge_allowed', 'deduct_copay'], value='charge_allowed', id='controls'),
-    dcc.Graph(id='first-graph')
+# @callback(
+#         Output(ids.CORP_DAILY_CLAIMS_MONTH, component_property='figure'),
+#         Input(ids.CORP_PERIOD_DROPDOWN, component_property='value')
+#     )
+# def update_graph(period_chosen):
+#     daily_per = (db.session.execute(db.select(DailyClaims.charge_trans_date, DailyClaims.count)
+#                                     .where(DailyClaims.period == period_chosen)))
+#     daily_per_df = pd.DataFrame(daily_per)
+#     fig = px.bar(daily_per_df, x='charge_trans_date', y='count')
 
-])
+#     # query = db.session.query(
+#     #     ClaimsPaid.period,
+#     #     sa.func.avg(getattr(ClaimsPaid, col_chosen)).label('measure')).group_by(ClaimsPaid.period).all()
+#     # x = [q.period for q in query]
+#     # y = [q.measure for q in query]
+#     # fig = go.Figure([go.Bar(x=x, y=y)])
+#     return fig
+
+
+#######################################################################
+#######################################################################
+
+
+layout = dbc.Container(
+    [
+        html.Div(
+            id='corp-app-container',
+            children=[
+                tmc.render_corporate_tab_menu(),
+                html.Div(id=ids.CORP_APP_CONTENT)
+            ]
+        )
+    ]
+)
+
+""" Callback 1 - Link to Tabs """
 
 @callback(
-        Output(component_id='first-graph', component_property='figure'),
-        Input(component_id='controls', component_property='value')
-    )
-def update_graph(col_chosen):
-    query = db.session.query(
-        ClaimsPaid.period,
-        sa.func.avg(getattr(ClaimsPaid, col_chosen)).label('measure')).group_by(ClaimsPaid.period).all()
-    x = [q.period for q in query]
-    y = [q.measure for q in query]
-    fig = go.Figure([go.Bar(x=x, y=y)])
-    return fig
+    Output(ids.CORP_APP_CONTENT, 'children'),
+    Input(ids.CORP_APP_TABS, 'active_tab')
+)
+def render_tab_content(tab_selected):
+    if tab_selected == ids.CORP_TAB_DASHBOARD:
+        return corp_tab_dashboard.render_corp_tab_dashboard()
 
 
-#######################################################################
-#######################################################################
+@callback(
+    Output(ids.CORP_DAILY_CLAIMS_CHART, 'figure'),
+    Output(ids.CORP_DAILY_CLAIMS_AVERAGE, 'children'),
+    Output(ids.CORP_DAILY_CLAIMS_SUM, 'children'),
+    Output(ids.CORP_ANNUAL_CLAIMS_CHART, 'figure'),
+    Output(ids.CORP_ANNUAL_CLAIMS_AVERAGE, 'children'),
+    Output(ids.CORP_ANNUAL_CLAIMS_SUM, 'children'),
+
+    Output(ids.CORP_DAILY_PAID_CHART, 'figure'),
+    Output(ids.CORP_DAILY_PAID_AVERAGE, 'children'),
+    Output(ids.CORP_DAILY_PAID_SUM, 'children'),
+    Output(ids.CORP_ANNUAL_PAID_CHART, 'figure'),
+    Output(ids.CORP_ANNUAL_PAID_AVERAGE, 'children'),
+    Output(ids.CORP_ANNUAL_PAID_SUM, 'children'),
+
+    Output(ids.CORP_DAILY_MEMBER_CHART, 'figure'),
+    Output(ids.CORP_DAILY_MEMBER_AVERAGE, 'children'),
+    Output(ids.CORP_DAILY_MEMBER_SUM, 'children'),
+
+    Output(ids.CORP_MEM_CHARGE_CHART, 'figure'),
+
+    Input(ids.CORP_PERIOD_DROPDOWN, 'value')
+)
+def update_graph(period_chosen):
+
+    # ROW 1 - MEDICAL CLAIMS PROCESSED
+    # ROW 1 - COLUMN 1
+
+    daily_claims = (db.session.execute(db.select(DailyClaims.charge_trans_date, DailyClaims.claims_count)
+                                    .where(DailyClaims.period == period_chosen)))
+    daily_claims_chart = pd.DataFrame(daily_claims)
+    daily_claims_chart = px.bar(daily_claims_chart, x='charge_trans_date', y='claims_count')
+    daily_claims_average = (db.session.execute(db.select(PeriodSummary.claims_daily_avg)
+                                  .where(PeriodSummary.period == period_chosen)).scalar())
+    daily_claims_sum = (db.session.execute(db.select(PeriodSummary.claims_period_count)
+                                .where(PeriodSummary.period == period_chosen)).scalar())
+
+    # ROW 1 - COLUMN 2
+
+    annual_claims = (db.session.execute(db.select(PeriodSummary.period, PeriodSummary.claims_period_count)
+                                      .order_by(PeriodSummary.period)))
+    annual_claims_chart = pd.DataFrame(annual_claims)
+    # print(annual_claims_chart)
+    annual_claims_chart = px.bar(annual_claims_chart, x='period', y='claims_period_count')
+    annual_claims_average = (db.session.execute(db.select(PeriodSummary.claims_period_average_cum)
+                                                .where(PeriodSummary.period == 12)).scalar())
+    annual_claims_sum = (db.session.execute(db.select(PeriodSummary.claims_period_count_cum)
+                                                .where(PeriodSummary.period == 12)).scalar())
 
 
-# layout = dbc.Container(
-#     [
-#         html.Div(
-#             id='corp-app-container',
-#             children=[
-#                 tmc.render_corporate_tab_menu(),
-#                 html.Div(id=ids.CORP_APP_CONTENT)
-#             ]
-#         )
-#     ]
-# )
-#
-# """ Callback 1 - Link to Tabs """
-#
-# @callback(
-#     Output(ids.CORP_APP_CONTENT, 'children'),
-#     Input(ids.CORP_APP_TABS, 'active_tab')
-# )
-# def render_tab_content(tab_selected):
-#     if tab_selected == ids.CORP_TAB_DASHBOARD:
-#         return corp_tab_dashboard.render_corp_tab_dashboard()
-#
-#
-# """  CARD ICON """
+    # ROW 2 - CASHFLOW
+
+    # ROW 2 - COLUMN 1
+
+    daily_paid = db.session.execute(db.select(DailyClaims.charge_trans_date, DailyClaims.charges_paid)
+                                                .where(DailyClaims.period == period_chosen))
+    daily_paid_chart = pd.DataFrame(daily_paid)
+    daily_paid_chart = px.bar(daily_paid_chart, x='charge_trans_date', y='charges_paid')
+    daily_paid_average = (db.session.execute(db.select(PeriodSummary.claims_paid_daily_avg)
+                                                .where(PeriodSummary.period == period_chosen)).scalar())
+    daily_paid_sum = (db.session.execute(db.select(PeriodSummary.claims_period_paid)
+                                                .where(PeriodSummary.period == period_chosen)).scalar())
+
+
+    # ROW 2 COLUMN 2
+
+    annual_paid = db.session.execute(db.select(PeriodSummary.period, PeriodSummary.claims_period_paid))
+    annual_paid_chart = pd.DataFrame(annual_paid)
+    annual_paid_chart = px.bar(annual_paid_chart, x='period', y='claims_period_paid')
+    annual_paid_average = (db.session.execute(db.select(PeriodSummary.claims_period_paid_average_cum)
+                                              .where(PeriodSummary.period == 12)).scalar())
+    annual_paid_sum = (db.session.execute(db.select(PeriodSummary.claims_period_paid_cum)
+                                              .where(PeriodSummary.period == 12)).scalar())
+
+
+
+    # ROW 3 - MEMBER PARTICIPATION
+
+    # ROW 3 - COLUMN 1
+
+    daily_member = db.session.execute(db.select(DailyMember.charge_trans_date, DailyMember.member_count)
+                                              .where(DailyMember.period == period_chosen))
+    daily_member_chart = pd.DataFrame(daily_member)
+    daily_member_chart = px.bar(daily_member_chart, x='charge_trans_date', y='member_count')
+    daily_member_average = 100
+    daily_member_sum = 1000
+
+    # ROW 3 - COLUMN 2
+
+    mem_charges = (db.session.execute(db.select(PeriodMember.period, sa.func.count(PeriodMember.mem_acct_id.distinct()),
+                                                sa.func.avg(PeriodMember.charges_member))
+                                      .group_by(PeriodMember.period)
+                                      ))
+    mem_charges_df = pd.DataFrame(mem_charges)
+    mem_charges_df['avg'] = mem_charges_df['avg'].astype(int)
+    mem_charges_fig = px.bar(mem_charges_df, x='period', y='avg')
+
+    return daily_claims_chart, daily_claims_average, daily_claims_sum, annual_claims_chart, annual_claims_average, annual_claims_sum, \
+           daily_paid_chart, daily_paid_average, daily_paid_sum, annual_paid_chart, annual_paid_average, annual_paid_sum, \
+           daily_member_chart, daily_member_average, daily_member_sum,  mem_charges_fig,
+
+
+
+
+    # """  CARD ICON """
 #
 #
 # @callback(
