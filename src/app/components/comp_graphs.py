@@ -34,7 +34,7 @@ def make_dash_bar1(table):
         # font=font
     )
 
-    fig.update_xaxes(range=period_range)
+    # fig.update_xaxes(range=period_range)
 
     return fig
 
@@ -55,7 +55,7 @@ def make_dash_bar2(table):
         # font=font
     )
 
-    fig.update_xaxes(range=period_range)
+    # fig.update_xaxes(range=period_range)
 
     return fig
 
@@ -185,6 +185,7 @@ def make_dash_scatter1(table, spec_list, log_scale):
     )
 
     return fig
+
 
 def make_spec_scatter1(table):
 

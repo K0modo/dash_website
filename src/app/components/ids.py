@@ -7,10 +7,6 @@ MEM_TAB_DASHBOARD = 'mem-tab-dashboard'
 MEM_TAB_SERVICES = 'mem-tab-services'
 MEM_TAB_CLAIMS = 'mem-tab-claims'
 
-CORP_APP_CONTENT = 'corp-app-content'
-CORP_APP_TABS = 'corp-app-tabs'
-CORP_TAB_DASHBOARD = 'corp-tab-dashboard'
-CORP_TAB_OTHER ='corp-tab-other'
 
 STORE_DATA = 'store-data'
 STORE_DATA_FILTER = 'store-data-filter'
@@ -31,7 +27,7 @@ MEM_ANNUAL_TEST = 'mem-annual-test'
 MEM_TITLE_DASHBOARD = 'mem-title-dashboard'
 MEM_TITLE_SERVICES = 'mem-title-services'
 MEM_TITLE_CLAIMS = 'mem-title-claims'
-CORP_TITLE_DASHBOARD = 'corp-title-dashboard'
+
 
 MEM_DASH_BAR_CHARGE = 'mem-dash-bar-charge'
 MEM_DASH_BAR_CLAIMS = 'mem-dash-bar-claims'
@@ -52,6 +48,18 @@ MEM_SERV_GRID1_TABLE_TITLE = 'mem-serv-grid1-table-title'
 MEM_ANNUAL_CHARGEt = 'mem-annual-charget'
 MEM_ANNUAL_CLAIMSt = 'mem-annual-claimst'
 MEM_ANNUAL_LINE_ITEMSt = 'mem-annual-line-itemst'
+
+
+############################################################################
+# CORPORATE SITE
+############################################################################
+
+CORP_APP_CONTENT = 'corp-app-content'
+CORP_APP_TABS = 'corp-app-tabs'
+CORP_TAB_DASHBOARD = 'corp-tab-dashboard'
+CORP_TAB_SERVICES = 'corp-tab-services'
+CORP_TITLE_DASHBOARD = 'corp-title-dashboard'
+CORP_TITLE_SERVICES = 'corp-title-services'
 
 
 # MEDICAL CLAIMS PROCESSED
@@ -75,16 +83,25 @@ CORP_ANNUAL_PAID_SUM = 'corp-annual-paid-sum'
 CORP_DAILY_MEMBER_CHART = 'corp-daily-member-chart'
 CORP_DAILY_MEMBER_AVERAGE = 'corp-daily-member-average'
 CORP_DAILY_MEMBER_SUM = 'corp-daily-member-sum'
-
-
-
-
+CORP_ANNUAL_MEMBER_CHART = 'corp-annual-member-chart'
+CORP_ANNUAL_MEMBER_AVERAGE = 'corp-annual-member-average'
+CORP_ANNUAL_MEMBER_SUM = 'corp-annual-member-sum'
 
 # MEMBER PARTICIPATION
 CORP_MEM_PART_CHART = 'corp-mem-part-chart'
 CORP_MEM_CHARGE_CHART = 'corp-mem-charge-chart'
 
 
+############################################################################
+# CORPORATE SERVICES SECTION
+############################################################################
+
+CORP_SERVICES_DROPDOWN = 'corp-services-dropdown'
+CORP_SERVICES_ICD_TABLE = 'corp-services-icd-table'
+
+CORP_SERVICES_COUNT = 'corp-services-count'
+CORP_SERVICES_PAID = 'corp-services-paid'
+CORP_SERVICES_RACING = 'corp-services-racing'
 
 CORP_CLAIM_SCATBOX = 'corp-claim-scatbox'
 CORP_CHARGE_BOX = 'corp-charge-box'
@@ -108,3 +125,20 @@ CORP_CARD_CLAIMS_ALLPERIODS = 'corp-card-claims-allperiods'
 # CORP_CHARGE_MEMMAX_C = 'corp-charge-memmax-c'
 # CORP_CHARGE_MEMMAX_P = 'corp-charge-memmax-p'
 # CORP_CHARGE_MEMMAX_IND = 'corp-charge-memmax-ind'
+
+
+############################################################################
+# ANALYTIC SITE
+############################################################################
+
+
+ANALYTIC_APP_CONTENT = 'analytic-app-content'
+ANALYTIC_APP_TABS = 'analytic-app-tabs'
+ANALYTIC_TAB_DASHBOARD = 'analytic-tab-dashboard'
+ANALYTIC_TAB_SERVICES = 'analytic-tab-services'
+ANALYTIC_TITLE_DASHBOARD = 'analytic-title-dashboard'
+ANALYTIC_TITLE_SERVICES = 'analytic-title-services'
+
+
+ANALYTIC_DASHBOARD_BUTTON = 'analytic-dashboard-button'
+ANALYTIC_DASHBOARD_CHARGE_TABLE = 'analytic-dashboard-charge-table'

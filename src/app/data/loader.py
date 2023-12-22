@@ -28,3 +28,7 @@ for col in ['mem_acct', 'claim_item', 'injury_disease', 'specialty', 'facility_c
 def load_corporate_data():
     df_corp_dict = df_corp.to_dict('records')
     return df_corp_dict
+
+def load_icd_table():
+    table = df_corp.injury_disease.unique()
+    print(table)

@@ -50,7 +50,18 @@ class CorporateCalculations:
         return group_data
 
 
+#
+# import pandas as pd
+# file_df= r'C:\Users\jchri\PycharmProjects\dash_website\src\app\data\corp_services_tables_consolidated.csv'
+# df = pd.read_csv(file_df)
+# print(df)
 
+class CorporateTables:
+    def __init__(self, dataframe):
+        self.corp_table = dataframe
 
+    def get_icd_table(self):
+        icd_table = self.corp_table()
+        return icd_table
 
 
