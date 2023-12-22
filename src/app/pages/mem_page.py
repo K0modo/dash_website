@@ -4,12 +4,12 @@ import dash_bootstrap_components as dbc
 
 import pandas as pd
 
-from src.app.mem_tab_views import (
+from src.app.tab_views_member import (
     tabs_menu_member,
     mem_tab_services,
     mem_tab_dashboard
 )
-from src.app.mem_tab_views import mem_tab_claims
+from src.app.tab_views_member import mem_tab_claims
 
 from src.app.components import (
     comp_graphs

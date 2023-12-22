@@ -1,7 +1,7 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 from src.app.components import ids
-from src.app.corp_tab_views import corp_tab_dashboard_elements as D
+from src.app.tab_views_corporate import corp_tab_dashboard_elements as D
 
 
 def render_corp_tab_dashboard():

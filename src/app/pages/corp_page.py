@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from src.app.components import ids
 
-from src.app.corp_tab_views import tabs_menu_corporate as tmc, corp_tab_dashboard, corp_tab_services
+from src.app.tab_views_corporate import tabs_menu_corporate as tmc, corp_tab_dashboard, corp_tab_services
 
 from src.app.server import db
 import sqlalchemy as sa

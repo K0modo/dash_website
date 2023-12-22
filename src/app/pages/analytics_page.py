@@ -5,7 +5,7 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 from src.app.components import ids
-from src.app.analytic_tab_views import (
+from src.app.tab_views_analytics import (
     tabs_menu_analytic as tma,
     analytic_tab_dashboard as atd,
     analytic_tab_services as ats)
